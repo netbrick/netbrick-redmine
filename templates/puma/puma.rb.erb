@@ -1,0 +1,14 @@
+# Puma configuration file
+# Managed by puppet
+
+application_path = '<%= @redmine_path %>'
+directory application_path
+environment 'production'
+daemonize true
+pidfile "#{application_path}/tmp/pids/puma-<%= @user %>.pid"
+state_path "#{application_path}/tmp/pids/puma-<%= @user %>.state"
+stdout_redirect "#{application_path}/log/puma-<%= @user %>.stdout.log", "#{application_path}/log/puma-<%= @user %>.stderr.log"
+threads 2, 16
+workers 2
+bind 'tcp://0.0.0.0:<%= @port %>'
+activate_control_app 'unix:///tmp/pumactl-<%= @user %>.sock', { no_token: true }

@@ -1,0 +1,100 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          puma-<%= @user %>
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: puma-<%= @user %> server autostart script
+# Description:       puma server for hosting redmine under user <%= @user %>
+### END INIT INFO
+# Managed by puppet
+
+set -e
+
+test -f /etc/debian_version && . /lib/lsb/init-functions
+test -f /etc/redhat-release && . /etc/init.d/functions
+
+ORIGINAL_PATH=$PATH
+
+# Restore original $PATH
+PATH=$ORIGINAL_PATH
+
+# The name of the service
+NAME=puma-<%= @user %>
+
+# The username and path to the gitlab source
+USER=<%= @user %>
+APP_PATH=<%= @redmine_path %>
+
+# The PID and LOCK files used by puma and sidekiq
+UPID=$APP_PATH/tmp/pids/$NAME.pid
+ULOCK=$APP_PATH/tmp/$NAME
+
+# The options to use when running puma
+OPTS="-C $APP_PATH/config/puma.rb -e production"
+
+start() {
+  cd $APP_PATH
+
+  # Start puma
+  echo -n $"Starting puma: " 
+  sudo -u <%= @user %> $APP_PATH/puma.sh $OPTS
+  puma=$?
+  [ $puma -eq 0 ] && touch $ULOCK
+  echo
+
+  retval=$puma
+  return $retval
+}
+
+stop() {
+  cd $APP_PATH
+
+  # Stop puma
+  echo -n $"Stopping puma: "
+  killproc -p $UPID
+  puma=$?
+  [ $puma -eq 0 ] && rm -f $ULOCK
+  echo
+
+  retval=$puma
+  return $retval
+}
+
+restart() {
+  stop
+  start
+}
+
+get_status() {
+  status_of_proc -p $UPID puma
+}
+
+query_status() {
+  get_status >/dev/null 2>&1
+}
+
+case "$1" in
+  start)
+    query_status && exit 0
+    start
+    ;;
+  stop)
+    query_status || exit 0
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  status)
+    get_status
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|restart|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

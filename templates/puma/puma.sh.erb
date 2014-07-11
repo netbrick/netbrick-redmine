@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# File to load redmine
+# Managed by puppet
+
+# load ruby environment manager RBENV
+if [ -d $HOME/.rvm ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+else
+    echo "No ruby environment manager, exiting"
+    exit 1
+fi
+
+# Run puma server
+export RUBYOPT=-Ku
+cd <%= @redmine_path %>
+bundle exec puma $*
