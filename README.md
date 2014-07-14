@@ -30,7 +30,7 @@ Example: "user1/plugin1", "user2/plugin1" etc.
 
 Module will automaticaly parse this string and use string after slash as plugin to install.
 
-There is available only one method - redmine::install { user: } which manages whole set up of redmine
+There is available only one method - `redmine::install { user: }` which manages whole set up of redmine
 instance including installing, or deleting plugins. It's neccessary to have all plugins downloaded into
 redmine module in puppet master server.  
 
