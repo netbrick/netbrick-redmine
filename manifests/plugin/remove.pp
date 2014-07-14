@@ -8,9 +8,6 @@ define redmine::plugin::remove (
         $redmine_path           = "${home_path}/redmine"
         $redmine_plugins        = "${redmine_path}/plugins"
 
-        # If not specified redmine version, plugin source set to global
-        $plugin_dir_            = $plugin_dir ? { '' => generate('/bin/sh', '-c', "echo ${redmine} | sed 's/\(^...\).*/\1/'"), default => 'all' }
-
         $path                   = ["${home_path}/.rbenv/bin", "${home_path}/.rbenv/shims", '/bin', '/usr/bin', '/usr/sbin']
 
         # Workaround to not use 'parser = future' and still be able to work with arrays effectively
