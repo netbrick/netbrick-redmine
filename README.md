@@ -35,14 +35,14 @@ instance including installing, or deleting plugins. It's neccessary to have all 
 redmine module in puppet master server.  
 
 Example:
-	redmine::install { "user1":
-                port            => 3000,
-                redmine         => "2.5.1",
-                ruby            => "1.9.3-p547",
-                db_type         => 'postgresql',
-                plugin_dir      => 'all',
-                plugins         => [ 'github_hook', 'redmine_gitolite' ],
-        }
+	$redmine::install { "user1":
+        $        port            => 3000,
+        $        redmine         => "2.5.1",
+        $        ruby            => "1.9.3-p547",
+        $        db_type         => 'postgresql',
+        $        plugin_dir      => 'all',
+        $        plugins         => [ 'github_hook', 'redmine_gitolite' ],
+        $}
 
 ## Setup
 
@@ -69,12 +69,12 @@ file in following format: "user1 password1"
 			  "user2 password2"
 
 Example of module usage:
-	redmine::install { "user1":
-                port            => 3000,
-                redmine         => "2.4.5",
-                ruby            => "1.9.3-p547",
-                db_type         => 'mysql',
-        }
+	$redmine::install { "user1":
+        $        port            => 3000,
+        $        redmine         => "2.4.5",
+        $        ruby            => "1.9.3-p547",
+        $        db_type         => 'mysql',
+        $}
 
 ## Limitations
 
