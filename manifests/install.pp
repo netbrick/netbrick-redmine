@@ -35,7 +35,9 @@ define redmine::install (
 
 	# Install dependencies for redmine plugin
 	if ! defined ( Class['redmine::dependencies'] ) {
-		require	redmine::dependencies
+		class { 'redmine::dependencies':
+			db_type	=> $db_type_,
+		}
 	}
 
 	if ! defined ( File[$redmine_dir] ) { 
