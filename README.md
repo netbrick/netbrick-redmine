@@ -8,7 +8,6 @@
     * [What redmine affects](#what-redmine-affects)
     * [Setup requirements](#setup-requirements)
 4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
@@ -54,7 +53,7 @@ autoinstall it and provide initial setup. Redmine will also autoinstall rbenv an
 ruby version. As last step module creates service called puma-"user-name" and sets autoastart on system 
 boot.
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
 Currently only tested OS is Debian Wheezy, other distributions may not work with this module.
 There are no special requirements for system, but it's recommended to run module under new or
@@ -77,13 +76,6 @@ Example of module usage:
                 db_type         => 'mysql',
         }
 
-## Reference
-
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
-
 ## Limitations
 
 This module had been testes only on OS Debian Wheezy and supports only Redmine 
@@ -92,9 +84,3 @@ version 2.x
 ## Development
 
 It's released under Apache 2.0 license.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
