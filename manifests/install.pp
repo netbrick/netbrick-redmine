@@ -71,6 +71,7 @@ define redmine::install (
 		redmine		=> $redmine_,
 		ruby		=> $ruby,
 		db_type		=> $db_type_,
+		db_password	=> $db_password,
 		sourcetype	=> $sourcetype,
 		source		=> $source,
 		require		=> Rbenv::Compile["${user}/${ruby}"],
