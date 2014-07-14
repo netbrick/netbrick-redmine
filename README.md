@@ -64,7 +64,7 @@ nonexisting user.
 
 ## Usage
 
-As there is only one manifest to get redmine running, you have to add redmine::install { "user": }
+As there is only one manifest to get redmine running, you have to add `redmine::install { "user": }`
 to your node definition. There are various settings available.
 
 If you don't specify user's database password, password has to be included in /etc/puppet/modules/redmine/dbaccess
