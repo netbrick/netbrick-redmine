@@ -3,7 +3,12 @@ define redmine::database::postgresql (
 	$db_password	= '',
 ) {
 	if ! defined( Class['postgresql::server'] ) {
-		class { 'postgresql::server': }
+		$password_      = generate('/bin/sh', '-c', '/bin/date | md5sum' )
+                $password       = chomp($password_)
+
+		class { 'postgresql::server': 
+			postgres_password	=> $password,
+		}
 	}	 
 
 	postgresql::server::db { "redminedb-${user}":

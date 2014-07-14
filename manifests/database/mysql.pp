@@ -3,7 +3,12 @@ define redmine::database::mysql (
 	$db_password	= '',	
 ) {
 	if ! defined( Class['::mysql::server'] ) {
-        	class { '::mysql::server': }
+		$password_      = generate('/bin/sh', '-c', '/bin/date | md5sum' )
+        	$password       = chomp($password_)
+
+        	class { '::mysql::server': 
+			root_password	=> $password,
+		}
 	}	
 	
 	mysql::db { "redmine-${user}":
