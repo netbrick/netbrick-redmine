@@ -1,13 +1,11 @@
 define redmine::database::mysql (
 	$user		= $title,
-	$db_password	= '',	
+	$db_password	= '',
+	$db_root,	
 ) {
 	if ! defined( Class['::mysql::server'] ) {
-		$password_      = generate('/bin/sh', '-c', '/bin/date | md5sum' )
-        	$password       = chomp($password_)
-
         	class { '::mysql::server': 
-			root_password	=> $password,
+			root_password	=> $db_root,
 		}
 	}	
 	

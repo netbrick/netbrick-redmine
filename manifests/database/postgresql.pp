@@ -1,13 +1,11 @@
 define redmine::database::postgresql (
 	$user		= $title,	
 	$db_password	= '',
+	$db_root,
 ) {
 	if ! defined( Class['postgresql::server'] ) {
-		$password_      = generate('/bin/sh', '-c', '/bin/date | md5sum' )
-                $password       = chomp($password_)
-
 		class { 'postgresql::server': 
-			postgres_password	=> $password,
+			postgres_password	=> $db_root,
 		}
 	}	 
 
