@@ -5,6 +5,7 @@ define redmine::install (
 	$redmine	= '',
 	$ruby		= '',
 	$port		= '',
+	$socket		= '',
 	$db_type	= '',
 	$db_password	= '',
 	$db_root	= 'UNSET',
@@ -23,7 +24,13 @@ define redmine::install (
 
 	# Set default values if not specified
 	$redmine_	= $redmine ? { '' => 'master', default => $redmine }
-	$port_		= $port ? { '' => 3000, default => $port }
+	
+	if port == '' and $socket == '' {
+		$port_ 		= 3000
+	} else {
+		$port_ 		= $port
+		$socket_	= $socket
+	}
 	
 	$db_type_       = $db_type ? { 	''      => 'mysql',
                 			'pgs'   => 'postgresql',
@@ -85,6 +92,7 @@ define redmine::install (
 	redmine::puma { $user:
 		home		=> $home_path,
 		port		=> $port_,
+		socket		=> $socket_,
 		require		=> Redmine::Download[$user],
 	}
 

@@ -3,6 +3,7 @@ define redmine::puma (
 	$group		= $user,
 	$home,
 	$port,
+	$socket,
 ) {
 	# Set home path and redmine path
 	$home_path      = $home
@@ -39,6 +40,5 @@ define redmine::puma (
                 content => template("redmine/puma/puma-init.erb"),
                 mode    => 0755,
                 before  => Service["puma-${user}"],
-        }
-	
+        }	
 }

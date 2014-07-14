@@ -10,5 +10,6 @@ state_path "#{application_path}/tmp/pids/puma-<%= @user %>.state"
 stdout_redirect "#{application_path}/log/puma-<%= @user %>.stdout.log", "#{application_path}/log/puma-<%= @user %>.stderr.log"
 threads 2, 16
 workers 2
-bind 'tcp://0.0.0.0:<%= @port %>'
+<% if port != '' %>bind 'tcp://0.0.0.0:<%= @port %>'<% end %>
+<% if socket != '' %>bind 'unix://<%= @socket %>'<% end %>
 activate_control_app 'unix:///tmp/pumactl-<%= @user %>.sock', { no_token: true }
