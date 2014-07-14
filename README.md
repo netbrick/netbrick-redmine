@@ -68,8 +68,12 @@ As there is only one manifest to get redmine running, you have to add `redmine::
 to your node definition. There are various settings available.
 
 If you don't specify user's database password, password has to be included in /etc/puppet/modules/redmine/dbaccess
-file in following format: "user1 password1"
-			  "user2 password2"
+file in following format: 
+
+```
+user1 password1
+user2 password2
+```
 
 Example of module usage:
 
