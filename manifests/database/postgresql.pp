@@ -3,9 +3,7 @@ define redmine::database::postgresql (
 	$db_password	= '',
 ) {
 	if ! defined( Class['postgresql::server'] ) {
-		class { 'postgresql::server':
-			postgres_password => 'vidlevjidle',
-		}
+		class { 'postgresql::server': }
 	}	 
 
 	postgresql::server::db { "redminedb-${user}":

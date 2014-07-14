@@ -4,7 +4,7 @@
   "author": "NetBrick",
   "summary": "Module to host redmine instance under specified user.",
   "license": "Apache 2.0",
-  "source": "",
+  "source": "https://github.com/netbrick/netbrick-redmine/",
   "project_page": null,
   "issues_url": null,
   "dependencies": [

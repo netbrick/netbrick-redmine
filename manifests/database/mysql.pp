@@ -3,9 +3,7 @@ define redmine::database::mysql (
 	$db_password	= '',	
 ) {
 	if ! defined( Class['::mysql::server'] ) {
-        	class { '::mysql::server':
-                	root_password   => "vidlevjidle",
-        	}
+        	class { '::mysql::server': }
 	}	
 	
 	mysql::db { "redmine-${user}":
