@@ -26,7 +26,7 @@ define redmine::plugin::remove (
                 environment     => [ "RAILS_ENV=production", "NAME=${plugin}", "VERSION=0" ],
                 path            => $path,
                 timeout         => 250,
-                cwd             => $redmine_plugins,
+                cwd             => $redmine_path,
                 notify          => Service["puma-${user}"],
 		before		=> File["redmine::plugin::remove::delete ${plugin} ${user}"],
         }
@@ -39,6 +39,4 @@ define redmine::plugin::remove (
 		force	=> true,
                 require	=> Exec["redmine::plugin::remove::migrate ${plugin} ${user}"],
         }
-
-
 }
