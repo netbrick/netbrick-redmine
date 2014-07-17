@@ -40,7 +40,7 @@ define redmine::plugin::install (
                	path    	=> $path,
                	timeout 	=> 250,
 		refreshonly	=> true,
-               	cwd     	=> "${redmine_plugins}/${plugin}",
+               	cwd     	=> $redmine_path",
 		notify		=> Exec["redmine::plugin::install::migrate ${plugin} ${user}"],
         }
 
@@ -52,7 +52,7 @@ define redmine::plugin::install (
                	path    	=> $path,
                	timeout 	=> 250,
 		refreshonly	=> true,
-               	cwd     	=> "${redmine_path}",
+               	cwd     	=> $redmine_path,
 		notify		=> Service["puma-${user}"],
         }
 }
