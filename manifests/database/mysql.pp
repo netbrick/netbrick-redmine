@@ -4,11 +4,8 @@ define redmine::database::mysql (
 	$db_root,	
 ) {
 	if ! defined( Class['::mysql::server'] ) {
-        	class { '::mysql::server': 
-			root_password	=> $db_root,
-		}
+		fail( 'Mysql server has to be configured' )
 	}	
-	
 	mysql::db { "redmine-${user}":
   		user     => $user,
   		password => $db_password,
