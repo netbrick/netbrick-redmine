@@ -27,23 +27,16 @@ redmine module in puppet master server.
 
 ### What redmine affects
 
-Module requires mysql/postgresql database to be installed. If no database is installed, module will
-autoinstall it and provide initial setup. Redmine will also autoinstall rbenv and downloads relevant
-ruby version. As last step module creates service called puma-"user-name" and sets autostart on system 
-boot.
+Module requires mysql/postgresql database to be installed and configured. Redmine will autoinstall rbenv and 
+downloads relevant ruby version. As last step module creates service called puma-"user-name" and sets autostart 
+on system boot.
 
 ## Usage
 
 To get your redmine depoloyed with default settings you have to add `redmine::install { "user": }`
 to your node definition. There are various settings available.
 
-If you don't specify user's database password, password has to be included in `/etc/puppet/modules/redmine/dbaccess`
-file in following format: 
-
-```
-user1 password1
-user2 password2
-```
+If you don't specify user's database password, password will be generated randomly
 
 Example of module usage:
 
