@@ -6,7 +6,6 @@ define redmine::download (
 	$ruby,
 	$db_type,
 	$db_password,
-	$db_root,
 	$sourcetype	= '',
 	$source		= '',
 ) {
@@ -61,7 +60,6 @@ define redmine::download (
 		ruby		=> $ruby,
                 db_type 	=> $db_type,
 		db_password	=> $db_password,
-		db_root		=> $db_root,
                 require 	=> Redmine::Download::Files[$user],
 		before		=> Exec["redmine::download::gems ${user}"],
         }	

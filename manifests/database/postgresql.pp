@@ -1,7 +1,6 @@
 define redmine::database::postgresql (
 	$user		= $title,	
 	$db_password	= '',
-	$db_root,
 ) {
 	if ! defined( Class['postgresql::server'] ) {
 		fail( 'Postgresql server has to be configured' )

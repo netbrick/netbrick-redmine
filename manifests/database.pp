@@ -5,7 +5,6 @@ define redmine::database (
 	$ruby,
 	$db_type,
 	$db_password	= '',
-	$db_root,
 ) {
 	# File on puppet master server with database access
 	$dbaccess	= "/etc/puppet/modules/redmine/dbaccess"
@@ -27,13 +26,11 @@ define redmine::database (
 	if $db_type == 'mysql' {
 		redmine::database::mysql { $user: 
 			db_password 	=> $password,
-			db_root		=> $db_root,
 			require		=> File["${redmine_path}/config/database.yml"],
 		}
 	} elsif $db_type == 'postgresql' {
 		redmine::database::postgresql { $user: 
 			db_password 	=> $password,
-			db_root         => $db_root,
 			require		=> File["${redmine_path}/config/database.yml"],
 		}
 	} else {
