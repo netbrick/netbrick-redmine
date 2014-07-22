@@ -6,13 +6,10 @@ define redmine::database (
 	$db_type,
 	$db_password	= '',
 ) {
-	# File on puppet master server with database access
-	$dbaccess	= "/etc/puppet/modules/redmine/dbaccess"
-
-	# Generate random password for redmine database user
-	$password_	= $db_password ? { '' => generate('/bin/sh', '-c', "cat ${dbaccess} | grep ${user}"), default => $db_password }
-	$_password	= delete($password_, "${user} ")
-	$password	= chomp($_password)
+	# Generate random password for redmine database user, if not specified
+	$rnd 		= fqdn_rand('999999999',"${user}${db_type}")
+        $password_gen	= $db_password ? { '' => generate('/bin/bash', '-c', 'echo $rnd | md5sum | awk \'{print $1}\'' ), default => $db_password }
+        $password  	= chomp($password_gen)
 
 	# Download and set up database config file
 	file { "${redmine_path}/config/database.yml":
