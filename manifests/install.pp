@@ -8,6 +8,8 @@ define redmine::install (
 	$socket		= '',
 	$db_type	= '',
 	$db_password	= '',
+	$themes		= '',
+	$themes_del	= '',
 	$plugin_dir	= '',
 	$plugins	= '',
 	$plugins_del	= '',
@@ -91,6 +93,28 @@ define redmine::install (
 		socket		=> $socket_,
 		require		=> Redmine::Download[$user],
 	}
+
+	# Check if any theme is need to be installed
+	if ! empty( $themes ) {
+		redmine::theme::install { $themes:
+			user	=> $user,
+			home	=> $home_path,
+			require => Redmine::Download[$user],
+                        before  => Redmine::Puma[$user],
+		}
+			
+	}
+
+	# Check if any themes are need to be deleted
+	if ! empty( $themes_del ) {
+                redmine::theme::remove { $themes_del:
+                        user    => $user,
+                        home    => $home_path,
+                        require => Redmine::Download[$user],
+                        before  => Redmine::Puma[$user],
+                }
+
+        }
 
 	# Check if any plugins had been entered
 	if ! empty( $plugins ) {

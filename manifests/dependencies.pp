@@ -7,5 +7,7 @@ class redmine::dependencies {
 	if ! defined( Package['libmysql-ruby'] )		{ package { "libmysql-ruby": 			ensure => installed } }
 	if ! defined( Package['libmysqlclient-dev'] ) 		{ package { "libmysqlclient-dev": 		ensure => installed } }
 	if ! defined( Package['libpgsql-ruby'] )		{ package { "libpgsql-ruby":			ensure => installed } }
-	if ! defined( Package['postgresql-server-dev-all'] ) 	{ package { "postgresql-server-dev-all":	ensure => installed } }	
+	if ! defined( Package['postgresql-server-dev-all'] ) 	{ package { "postgresql-server-dev-all":	ensure => installed } }
+	if ! defined( Package['libxml-ruby'] )			{ package { "libxml-ruby":			ensure => installed } }
+	if ! defined( Package['libxslt1-dev'] )                 { package { "libxslt1-dev":                     ensure => installed } }
 }
