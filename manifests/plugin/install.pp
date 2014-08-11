@@ -11,8 +11,8 @@ define redmine::plugin::install (
 	$redmine_plugins	= "${redmine_path}/plugins"
 
 	# If not specified redmine version, plugin source set to global
-	$split = split( $redmine, '\.' )
-	$plugin_dir_		= $plugin_dir ? { '' => "${split[0]}.${split[1]}", default => 'all' }
+	$split_dir = split( $redmine, '\.' )
+	$plugin_dir_		= $plugin_dir ? { '' => "${split_dir[0]}.${split_dir[1]}", default => 'all' }
 
 	$path           	= ["${home_path}/.rbenv/bin", "${home_path}/.rbenv/shims", '/bin', '/usr/bin', '/usr/sbin']
 
@@ -38,6 +38,7 @@ define redmine::plugin::install (
                	command 	=> "bash --login -c 'bundle install --without development test'",
                	user    	=> $user,
                	group   	=> $group,
+		environment     => [ "HOME=${home_path}" ],
                	path    	=> $path,
                	timeout 	=> 250,
 		refreshonly	=> true,
@@ -49,7 +50,7 @@ define redmine::plugin::install (
                	command 	=> "rake redmine:plugins:migrate",
                	user    	=> $user,
                	group   	=> $group,
-		environment	=> [ "RAILS_ENV=production" ],
+		environment	=> [ "RAILS_ENV=production", "HOME=${home_path}" ],
                	path    	=> $path,
                	timeout 	=> 250,
 		refreshonly	=> true,
